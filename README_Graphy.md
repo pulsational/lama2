@@ -82,24 +82,14 @@ docker push 746615178768.dkr.ecr.us-west-2.amazonaws.com/plusmon.graphy:latest
 ```
 ## Package to docker: terminal
 
-### Edit the `Dockerfile`
-If no this step, when running bash command later, you will have error
+### Check permission
+- Make sure lama folder is owned by current user such as `jason` not `root`.
+- Create the folder under the shared folder is always owned by `root`
+- You need to clone to another folder.
+- If no this step, when running bash command later, you will have error
 ```
 12:00:06 jason@jason-VirtualBox lama ±|main ✗|→ bash docker/2_predict.sh $(pwd)/big-lama $(pwd)/LaMa_test_images $(pwd)/output device=cpu
 docker: Error response from daemon: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec /home/user/.local/bin/entrypoint.sh: permission denied: unknown.
-```
-In Dockerfile, change
-```
-ADD entrypoint.sh /home/$USERNAME/.local/bin/entrypoint.sh
-ENTRYPOINT [ "entrypoint.sh" ]
-```
-to
-```
-ADD entrypoint.sh /home/$USERNAME/.local/bin/entrypoint.sh
-USER root
-RUN chmod +x /home/$USERNAME/.local/bin/entrypoint.sh
-USER $USERNAME:$USERNAME
-ENTRYPOINT [ "entrypoint.sh" ]
 ```
 ### Build docker image
 ```
@@ -111,9 +101,15 @@ Shows
 ```
 11:46:50 jason@jason-VirtualBox lama ±|main ✗|→ docker images
 REPOSITORY      TAG                        IMAGE ID       CREATED             SIZE
-windj007/lama   latest                     5aedbe4e9346   About an hour ago   8.59GB
+windj007/lama   latest                     5aedbe4e9346   55 seconds ago      8.59GB
 ```
+### Run prediction
+```
+cd lama
+export TORCH_HOME=$(pwd) && export PYTHONPATH=$(pwd)
+bash docker/2_predict.sh $(pwd)/big-lama $(pwd)/LaMa_test_images $(pwd)/output device=cpu
 
+```
 ### Install aws cli
 - Generate a pair of access key and secret access key in IAM
 - Fill region and output format as `json`
