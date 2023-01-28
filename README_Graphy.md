@@ -5,6 +5,7 @@
 ```
 sudo apt-get update
 sudo apt-get install python3 python3-dev
+sudo apt  install curl
 // Install notepadqq
 sudo apt-get install notepadqq
 // Install oh-my-zsh or oh-my-bash
