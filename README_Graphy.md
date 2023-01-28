@@ -96,6 +96,15 @@ aws ecr get-login-password --region us-west-2 | docker login --username AWS --pa
 12:00:06 jason@jason-VirtualBox lama ±|main ✗|→ bash docker/2_predict.sh $(pwd)/big-lama $(pwd)/LaMa_test_images $(pwd)/output device=cpu
 docker: Error response from daemon: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec /home/user/.local/bin/entrypoint.sh: permission denied: unknown.
 ```
+
+### Download Places2, Places Challenge model
+```
+curl -L $(yadisk-direct https://disk.yandex.ru/d/ouP6l8VJ0HpMZg) -o big-lama.zip
+unzip big-lama.zip
+```
+If `yadisk-direct` does not work, find it in `Dropbox\Work\BigFiles` and unzip it.
+Or, check if the file has been already downloaded.
+
 ### Build docker image
 ```
 cd docker
