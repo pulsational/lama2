@@ -81,7 +81,11 @@ docker tag windj007/lama:latest 746615178768.dkr.ecr.us-west-2.amazonaws.com/plu
 docker push 746615178768.dkr.ecr.us-west-2.amazonaws.com/plusmon.graphy:latest
 ```
 ## Package to docker: terminal
-
+### Setup environment on a fresh Ubuntu
+```
+sudo apt-get update
+sudo apt-get install python3 python3-dev
+```
 ### Check permission
 - Make sure lama folder is owned by current user such as `jason` not `root`.
 - Create the folder under the shared folder is always owned by `root`
