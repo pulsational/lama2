@@ -7,13 +7,13 @@ sudo apt-get update
 sudo apt-get install python3 python3-dev
 sudo apt  install curl
 // Install notepadqq
-sudo apt-get install notepadqq
+//sudo apt-get install notepadqq
 sudo snap install notepadqq
 // Install oh-my-zsh or oh-my-bash
 // oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+//sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 // oh-my-bash
-// bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
 ```
 - Docker
 ```
