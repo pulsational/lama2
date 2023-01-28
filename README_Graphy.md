@@ -109,6 +109,8 @@ Or, check if the file has been already downloaded.
 ```
 cd docker
 ./build.sh
+// cuda. Changed the cude version from 11.1 to 10.2
+// ./build-cuda111.sh
 docker images
 ```
 Shows
@@ -117,7 +119,11 @@ Shows
 REPOSITORY      TAG                        IMAGE ID       CREATED             SIZE
 windj007/lama   latest                     5aedbe4e9346   55 seconds ago      8.59GB
 ```
-
+If using cuda, shows
+```
+REPOSITORY                                                    TAG                        IMAGE ID       CREATED         SIZE
+windj007/lama                                                 cuda111                    7b0f3074b87f   2 minutes ago   12.1GB
+```
 ### Run prediction
 ```
 cd lama
