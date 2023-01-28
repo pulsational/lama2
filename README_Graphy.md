@@ -34,11 +34,16 @@ cat ~/.ssh/id_ed25519.pub
 ```
 Past it to the github SSH.
 
+```
+// Install notepadqq
+sudo apt-get install notepadqq
+
+```
 ### Check permission
 - Make sure lama folder is owned by current user such as `jason` not `root`.
 - Create the folder under the shared folder is always owned by `root`
 - You need to clone to another folder.
-- If no this step, when running bash command later, you will have error
+- If no this step, when install running bash command later, you will have error
 ```
 12:00:06 jason@jason-VirtualBox lama ±|main ✗|→ bash docker/2_predict.sh $(pwd)/big-lama $(pwd)/LaMa_test_images $(pwd)/output device=cpu
 docker: Error response from daemon: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec /home/user/.local/bin/entrypoint.sh: permission denied: unknown.
