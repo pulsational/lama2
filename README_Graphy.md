@@ -6,6 +6,7 @@
 sudo apt-get update
 sudo apt-get install python3 python3-dev
 sudo apt  install curl
+sudo apt install git-all
 // Install notepadqq
 //sudo apt-get install notepadqq
 sudo snap install notepadqq
