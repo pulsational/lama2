@@ -58,9 +58,8 @@ cat ~/.ssh/id_ed25519.pub
 Past it to the github SSH.
 
 ```
-git config --global user.name "Pulsational"
-git commit -m "Save notes"
 git clone git@github.com:pulsational/lama2.git
+git config --global user.name "Pulsational"
 ```
 - Install AWS cli
 ```
