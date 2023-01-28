@@ -26,7 +26,14 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 // Verify that the Docker Engine installation is successful by running the hello-world image:
 sudo docker run hello-world
+// Generate ssh key for git
+ssh-keygen -t ed25519 -C "jason.hou.ca@gmail.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+cat ~/.ssh/id_ed25519.pub
 ```
+Past it to the github SSH.
+
 ### Check permission
 - Make sure lama folder is owned by current user such as `jason` not `root`.
 - Create the folder under the shared folder is always owned by `root`
