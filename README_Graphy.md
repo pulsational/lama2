@@ -5,6 +5,16 @@
 ```
 sudo apt-get update
 sudo apt-get install python3 python3-dev
+// Install notepadqq
+sudo apt-get install notepadqq
+// Install oh-my-zsh or oh-my-bash
+// oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+// oh-my-bash
+// bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+```
+- Docker
+```
 // Docker install: https://docs.docker.com/engine/install/ubuntu/
 // uninstall previous docker
 sudo apt-get remove docker docker-engine docker.io containerd runc 
@@ -26,6 +36,18 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 // Verify that the Docker Engine installation is successful by running the hello-world image:
 sudo docker run hello-world
+```
+Resolve permission, in case got error
+```
+```
+Enter
+```
+sudo groupadd docker
+sudo usermod -aG docker ${USER}
+```
+Log out and log in
+- Git
+```
 // Generate ssh key for git
 ssh-keygen -t ed25519 -C "jason.hou.ca@gmail.com"
 eval "$(ssh-agent -s)"
@@ -38,16 +60,30 @@ Past it to the github SSH.
 git config --global user.name "Pulsational"
 git commit -m "Save notes"
 git clone git@github.com:pulsational/lama2.git
-// Install notepadqq
-sudo apt-get install notepadqq
-// Install oh-my-zsh or oh-my-bash
-// oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-// oh-my-bash
-// bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
-
-
 ```
+- Install AWS cli
+```
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+```
+- Setup AWS CLI
+AWS user:
+```
+root: plusmon.graphy@gmail.com
+iam: 746615178768, pulsational
+// Create them in IAM/User/pulsational/Security Credentials/Access keys
+Access key: AKIA23VN3QYIEVA5QWWW
+Secret access key: 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
+Region: us-west-2
+Output format: json
+```
+Config, with a existing ECR repository
+```
+aws configure 
+aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 746615178768.dkr.ecr.us-west-2.amazonaws.com/plusmon.graphy
+```
+
 ### Check permission
 - Make sure lama folder is owned by current user such as `jason` not `root`.
 - Create the folder under the shared folder is always owned by `root`
