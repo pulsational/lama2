@@ -128,7 +128,25 @@ export TORCH_HOME=$(pwd) && export PYTHONPATH=$(pwd)
 bash docker/2_predict.sh $(pwd)/big-lama $(pwd)/LaMa_test_images $(pwd)/output device=cpu
 
 ```
-
+```
+docker/2_predict.sh $(pwd)/big-lama $(pwd)/LaMa_test_images $(pwd)/output device=cpu
+docker exec -it
+docker run \
+    -v "$SRCDIR":/home/user/project \
+    -v "$MODEL_LOCAL_DIR":/data/checkpoint \
+    -v "$INPUT_LOCAL_DIR":/data/input \
+    -v "$OUTPUT_LOCAL_DIR":/data/output \
+    -u $(id -u):$(id -g) \
+    --name="lama-predict" \
+    --rm \
+    windj007/lama \
+    /home/user/project/bin/predict.py \
+        model.path=/data/checkpoint \
+        indir=/data/input \
+        outdir=/data/output \
+        dataset.img_suffix=.png \
+        $@
+```
 ## Install python virtualenv
 ```
 pip3 install virtualenv
