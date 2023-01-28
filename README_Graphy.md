@@ -108,13 +108,7 @@ Shows
 REPOSITORY      TAG                        IMAGE ID       CREATED             SIZE
 windj007/lama   latest                     5aedbe4e9346   55 seconds ago      8.59GB
 ```
-### Run prediction
-```
-cd lama
-export TORCH_HOME=$(pwd) && export PYTHONPATH=$(pwd)
-bash docker/2_predict.sh $(pwd)/big-lama $(pwd)/LaMa_test_images $(pwd)/output device=cpu
 
-```
 ### Install aws cli
 - Generate a pair of access key and secret access key in IAM
 - Fill region and output format as `json`
@@ -127,7 +121,13 @@ bash docker/2_predict.sh $(pwd)/big-lama $(pwd)/LaMa_test_images $(pwd)/output d
 aws configure
 aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 746615178768.dkr.ecr.us-west-2.amazonaws.com/plusmon.graphy
 ```
+### Run prediction
+```
+cd lama
+export TORCH_HOME=$(pwd) && export PYTHONPATH=$(pwd)
+bash docker/2_predict.sh $(pwd)/big-lama $(pwd)/LaMa_test_images $(pwd)/output device=cpu
 
+```
 
 ## Install python virtualenv
 ```
