@@ -118,43 +118,19 @@ REPOSITORY      TAG                        IMAGE ID       CREATED             SI
 windj007/lama   latest                     5aedbe4e9346   55 seconds ago      8.59GB
 ```
 
-### Install aws cli
-- Generate a pair of access key and secret access key in IAM
-- Fill region and output format as `json`
-### Tag and upload to ecr
-- Create a repository in ECR
-  
-- login
-  
-```
-aws configure
-aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 746615178768.dkr.ecr.us-west-2.amazonaws.com/plusmon.graphy
-```
 ### Run prediction
 ```
 cd lama
 export TORCH_HOME=$(pwd) && export PYTHONPATH=$(pwd)
 bash docker/2_predict.sh $(pwd)/big-lama $(pwd)/LaMa_test_images $(pwd)/output device=cpu
+```
+### Upload to ECR
+```
+docker images
+// use the image id to tag it
+docker tag 43fec979a14e 746615178768.dkr.ecr.us-west-2.amazonaws.com/plusmon.graphy
+docker push 746615178768.dkr.ecr.us-west-2.amazonaws.com/plusmon.graphy:latest
 
-```
-```
-docker/2_predict.sh $(pwd)/big-lama $(pwd)/LaMa_test_images $(pwd)/output device=cpu
-docker exec -it
-docker run \
-    -v "$SRCDIR":/home/user/project \
-    -v "$MODEL_LOCAL_DIR":/data/checkpoint \
-    -v "$INPUT_LOCAL_DIR":/data/input \
-    -v "$OUTPUT_LOCAL_DIR":/data/output \
-    -u $(id -u):$(id -g) \
-    --name="lama-predict" \
-    --rm \
-    windj007/lama \
-    /home/user/project/bin/predict.py \
-        model.path=/data/checkpoint \
-        indir=/data/input \
-        outdir=/data/output \
-        dataset.img_suffix=.png \
-        $@
 ```
 ## Install python virtualenv
 ```
