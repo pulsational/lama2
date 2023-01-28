@@ -1,4 +1,74 @@
 # Setup env
+
+## Package to docker: terminal
+### Setup environment on a fresh Ubuntu
+```
+sudo apt-get update
+sudo apt-get install python3 python3-dev
+// Docker install: https://docs.docker.com/engine/install/ubuntu/
+// uninstall previous docker
+sudo apt-get remove docker docker-engine docker.io containerd runc 
+// Update the apt package index and install packages to allow apt to use a repository over HTTPS:
+sudo apt-get install \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+// Add Docker’s official GPG key:
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+// Use the following command to set up the repository:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+// To install the latest version, run:
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+// Verify that the Docker Engine installation is successful by running the hello-world image:
+sudo docker run hello-world
+```
+### Check permission
+- Make sure lama folder is owned by current user such as `jason` not `root`.
+- Create the folder under the shared folder is always owned by `root`
+- You need to clone to another folder.
+- If no this step, when running bash command later, you will have error
+```
+12:00:06 jason@jason-VirtualBox lama ±|main ✗|→ bash docker/2_predict.sh $(pwd)/big-lama $(pwd)/LaMa_test_images $(pwd)/output device=cpu
+docker: Error response from daemon: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec /home/user/.local/bin/entrypoint.sh: permission denied: unknown.
+```
+### Build docker image
+```
+cd docker
+./build.sh
+docker images
+```
+Shows
+```
+11:46:50 jason@jason-VirtualBox lama ±|main ✗|→ docker images
+REPOSITORY      TAG                        IMAGE ID       CREATED             SIZE
+windj007/lama   latest                     5aedbe4e9346   55 seconds ago      8.59GB
+```
+### Run prediction
+```
+cd lama
+export TORCH_HOME=$(pwd) && export PYTHONPATH=$(pwd)
+bash docker/2_predict.sh $(pwd)/big-lama $(pwd)/LaMa_test_images $(pwd)/output device=cpu
+
+```
+### Install aws cli
+- Generate a pair of access key and secret access key in IAM
+- Fill region and output format as `json`
+### Tag and upload to ecr
+- Create a repository in ECR
+  
+- login
+  
+```
+aws configure
+aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 746615178768.dkr.ecr.us-west-2.amazonaws.com/plusmon.graphy
+```
+
+
 ## Install python virtualenv
 ```
 pip3 install virtualenv
@@ -79,73 +149,6 @@ Real
 ```
 docker tag windj007/lama:latest 746615178768.dkr.ecr.us-west-2.amazonaws.com/plusmon.graphy:latest
 docker push 746615178768.dkr.ecr.us-west-2.amazonaws.com/plusmon.graphy:latest
-```
-## Package to docker: terminal
-### Setup environment on a fresh Ubuntu
-```
-sudo apt-get update
-sudo apt-get install python3 python3-dev
-// Docker install: https://docs.docker.com/engine/install/ubuntu/
-// uninstall previous docker
-sudo apt-get remove docker docker-engine docker.io containerd runc 
-// Update the apt package index and install packages to allow apt to use a repository over HTTPS:
-sudo apt-get install \
-    ca-certificates \
-    curl \
-    gnupg \
-    lsb-release
-// Add Docker’s official GPG key:
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-// Use the following command to set up the repository:
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
-// To install the latest version, run:
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
-// Verify that the Docker Engine installation is successful by running the hello-world image:
-sudo docker run hello-world
-```
-### Check permission
-- Make sure lama folder is owned by current user such as `jason` not `root`.
-- Create the folder under the shared folder is always owned by `root`
-- You need to clone to another folder.
-- If no this step, when running bash command later, you will have error
-```
-12:00:06 jason@jason-VirtualBox lama ±|main ✗|→ bash docker/2_predict.sh $(pwd)/big-lama $(pwd)/LaMa_test_images $(pwd)/output device=cpu
-docker: Error response from daemon: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec /home/user/.local/bin/entrypoint.sh: permission denied: unknown.
-```
-### Build docker image
-```
-cd docker
-./build.sh
-docker images
-```
-Shows
-```
-11:46:50 jason@jason-VirtualBox lama ±|main ✗|→ docker images
-REPOSITORY      TAG                        IMAGE ID       CREATED             SIZE
-windj007/lama   latest                     5aedbe4e9346   55 seconds ago      8.59GB
-```
-### Run prediction
-```
-cd lama
-export TORCH_HOME=$(pwd) && export PYTHONPATH=$(pwd)
-bash docker/2_predict.sh $(pwd)/big-lama $(pwd)/LaMa_test_images $(pwd)/output device=cpu
-
-```
-### Install aws cli
-- Generate a pair of access key and secret access key in IAM
-- Fill region and output format as `json`
-### Tag and upload to ecr
-- Create a repository in ECR
-  
-- login
-  
-```
-aws configure
-aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 746615178768.dkr.ecr.us-west-2.amazonaws.com/plusmon.graphy
 ```
 
 ## Trouble shooting
