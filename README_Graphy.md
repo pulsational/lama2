@@ -61,6 +61,7 @@ Past it to the github SSH.
 
 ```
 git clone git@github.com:pulsational/lama2.git
+git config --global user.email "jason.hou.ca@gmail.com"
 git config --global user.name "Pulsational"
 ```
 - Install AWS cli
