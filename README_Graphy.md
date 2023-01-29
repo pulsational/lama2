@@ -1,5 +1,64 @@
 # Setup env
 
+## Run on hosts
+### Setup environment on a fresh Ubuntu
+```
+sudo apt-get update
+sudo apt-get install python3 python3-dev
+sudo apt install python3-pip
+sudo apt install python-pip
+python3 -m pip install --user virtualenv
+sudo apt  install curl
+sudo apt install git-all
+// Install notepadqq
+//sudo apt-get install notepadqq
+sudo snap install notepadqq
+// Install oh-my-zsh or oh-my-bash
+// oh-my-zsh
+//sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+// oh-my-bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+```
+- Git
+```
+// Generate ssh key for git
+ssh-keygen -t ed25519 -C "jason.hou.ca@gmail.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+cat ~/.ssh/id_ed25519.pub
+```
+Past it to the github SSH.
+
+```
+git clone git@github.com:pulsational/lama2.git
+git config --global user.email "jason.hou.ca@gmail.com"
+git config --global user.name "Pulsational"
+```
+- Install AWS cli
+```
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+```
+- Setup AWS CLI
+AWS user:
+```
+root: plusmon.graphy@gmail.com
+iam: 746615178768, pulsational
+// Create them in IAM/User/pulsational/Security Credentials/Access keys
+Access key: AKIA23VN3QYIEVA5QWWW
+Secret access key: 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
+Region: us-west-2
+Output format: json
+```
+### Setup ML environment
+```
+virtualenv inpenv --python=/usr/bin/python3
+source inpenv/bin/activate
+pip install torch==1.8.0 torchvision==0.9.0
+pip install scikit-image==0.17.2
+pip install -r requirements.txt 
+```
 ## Package to docker: terminal
 ### Setup environment on a fresh Ubuntu
 ```
