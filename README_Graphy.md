@@ -1,5 +1,16 @@
 # Setup env
 
+## AWS EC2 startup script(tbd)
+```
+sudo apt-get update
+sudo apt-get install python3 python3-dev
+sudo apt install python3-pip
+sudo apt install python-pip
+python3 -m pip install --user virtualenv
+sudo apt install curl
+sudo apt install git-all
+```
+
 ## Run on hosts
 ### Setup environment on a fresh Ubuntu
 ```
